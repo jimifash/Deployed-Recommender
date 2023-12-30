@@ -21,7 +21,7 @@ def play_youtube_video(video_id):
     st.video(f"https://www.youtube.com/watch?v={video_id}")
 
 def main():
-    st.title("Music Recommendation System")
+    st.title("Nigerian Songs Recommendation System")
 
     # Use st.selectbox for song selection
     st.markdown("### Select a song:")
