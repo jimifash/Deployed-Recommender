@@ -1,21 +1,21 @@
-import os
+#import os
 import pandas as pd
 from Music_Recommendation import recommend, df_new
 from youtubesearchpython import VideosSearch
 import streamlit as st
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Load environment variables
-load_dotenv()
+#load_dotenv()
 
 data = df_new
 df = pd.DataFrame(data)
 
 # Set your YouTube API key
-key = os.getenv('api_key')
+#key = os.getenv('api_key')
 
 # Set the YouTube API key globally
-VideosSearch(key)
+#VideosSearch(key)
 
 def play_youtube_video(video_id):
     st.video(f"https://www.youtube.com/watch?v={video_id}")
