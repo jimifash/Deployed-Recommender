@@ -43,7 +43,7 @@ def main():
             artist = df[df['song_name'] == recommended_song]["artist_name"]
 
             # Use YouTube API to get video information
-            videos_search = VideosSearch(recommended_song + "by artist", limit=1)
+            videos_search = VideosSearch(recommended_song + "by" + artist, limit=1)
             results = videos_search.result()
             if results:
                 video_id = results['result'][0]['id']
