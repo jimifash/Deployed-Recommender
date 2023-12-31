@@ -18,9 +18,7 @@ from Webscrape import scrape_boomplay
 
 
 #load the scraped and cleaned data
-scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
-df = pd.read_csv("Boomplay Scraped songs.csv")
-df
+df = scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
 
 
 # In[4]:
