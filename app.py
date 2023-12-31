@@ -21,7 +21,7 @@ def play_youtube_video(video_id):
     st.video(f"https://www.youtube.com/watch?v={video_id}")
 
 def main():
-    st.title("Music Recommendation System")
+    st.title("Nigerian Songs Recommendation System")
 
     # Use st.selectbox for song selection
     st.markdown("### Select a song:")
@@ -40,9 +40,10 @@ def main():
         # Display recommended songs with a styled layout
         for recommended_song in recommendations:
             st.markdown(f"### {recommended_song}")
+            artist = df[df['song_name'] == recommended_song]["artist_name"].iloc[0]
 
             # Use YouTube API to get video information
-            videos_search = VideosSearch(recommended_song, limit=1)
+            videos_search = VideosSearch(recommended_song + " by " + artist, limit=1)
             results = videos_search.result()
             if results:
                 video_id = results['result'][0]['id']
