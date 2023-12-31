@@ -11,14 +11,16 @@ import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
 from sklearn.metrics.pairwise import cosine_similarity
-from Webscrape import scrape_boomplay
+#from Webscrape import scrape_boomplay
 
 
 # In[3]:
 
 
 #load the scraped and cleaned data
-df = scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
+#scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
+df = pd.read_csv("Boomplay Scraped songs.csv")
+df
 
 
 # In[4]:

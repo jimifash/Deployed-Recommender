@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 import re
 
+data = pd.read_csv("Boomplay Scraped songs.csv")
 def scrape_boomplay(url):
     # Send an HTTP request to the provided URL
     response = requests.get(url)
@@ -70,12 +71,15 @@ def scrape_boomplay(url):
         df['a_age'] = pd.to_datetime(df['a_age'], errors='coerce', format='%Y-%m-%d')
         df['age'] = datetime.today().year - df['a_age'].dt.year
         df.rename(columns={'a_age': 'dob'}, inplace=True)
-
-        return df
+        df2 = data.append(df)
+        df2.to_csv("Top_Naija_Music_Trends_Boom_play.csv") #saving the dataframe
+        return df2
 
     else:
         print(f"Error: Unable to retrieve data from {url}")
         return None
+     
+
 
 
 
