@@ -42,7 +42,7 @@ def main():
             st.markdown(f"### {recommended_song}")
 
             # Use YouTube API to get video information
-            videos_search = VideosSearch(recommended_song, limit=1)
+            videos_search = VideosSearch(recommended_song + "songs", limit=1)
             results = videos_search.result()
             if results:
                 video_id = results['result'][0]['id']
