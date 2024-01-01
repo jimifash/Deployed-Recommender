@@ -11,5 +11,5 @@ seaborn == 0.12.2
 lxml==4.6.3
 youtube-search-python == 1.6.6
 sqlalchemy == 2.0.24
-dotenv == 1.0.0
+python-dotenv == 1.0.0
 mysql-connector-python == 8.2.0
