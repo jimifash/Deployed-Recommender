@@ -132,7 +132,6 @@ df_new['song_name'] = df_new['song_name'].apply(lambda x:x.lower())
 
 # In[49]:
 
-
 def recommend(key):
     key = key.lower()
     matching_rows = df_new[df_new['song_name'] == key]
@@ -141,7 +140,7 @@ def recommend(key):
         index = matching_rows.index[0]
         print("Index:", index)
         
-        if 0 <= index < similarity.shape[0]:
+        if 0 <= index < min(similarity.shape):
             sim_row = similarity[index]
             print("Similarity Row:", sim_row)
 
@@ -155,4 +154,3 @@ def recommend(key):
     else:
         return ["Song not found"]
 
-        
