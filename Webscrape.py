@@ -5,13 +5,13 @@ from datetime import datetime
 import re
 #import mysql.connector
 #from sqlalchemy import create_engine
-import os
-from dotenv import load_dotenv
-load_dotenv()
-key = os.getenv('PASSWORD')
-host = os.getenv('HOST')
-user = os.getenv('USER')
-db = os.getenv('DB')
+#import os
+#from dotenv import load_dotenv
+#load_dotenv()
+#key = os.getenv('PASSWORD')
+#host = os.getenv('HOST')
+#user = os.getenv('USER')
+#db = os.getenv('DB')
 
 
 
