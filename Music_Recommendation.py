@@ -46,6 +46,7 @@ df = scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
 #df
 #df = pd.read_csv("Boomplay Scraped songs.csv")
 df = df.drop_duplicates(subset=['song_name'])
+df.reset_index(drop=True, inplace=True)
 
 # In[4]:
 
