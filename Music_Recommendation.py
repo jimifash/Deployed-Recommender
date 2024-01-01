@@ -7,19 +7,42 @@
 
 
 #import libraries
+
 import pandas as pd
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk
 from sklearn.metrics.pairwise import cosine_similarity
-#from Webscrape import scrape_boomplay
+from Webscrape import scrape_boomplay
+from sqlalchemy import create_engine
+import mysql.connector
+import os
+from dotenv import load_dotenv
+load_dotenv()
+key = os.getenv('PASSWORD')
+host = os.getenv('HOST')
+user = os.getenv('USER')
+db = os.getenv('DB')
 
+
+
+db_config = {
+    'host': host,
+    'user': user,
+    'password': key,
+    'database': db,
+}
 
 # In[3]:
-
+conn = mysql.connector.connect(**db_config)
 
 #load the scraped and cleaned data
-#scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
-df = pd.read_csv("Boomplay Scraped songs.csv")
+scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
+engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
+
+
+# Use the connection to execute the query
+query = 'SELECT DISTINCT(song_name),artist_name,a_age,time FROM music.scraped_data'
+df = pd.read_sql_query(query, con=conn)
 df
 
 

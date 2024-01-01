@@ -3,10 +3,10 @@ import pandas as pd
 from Music_Recommendation import recommend, df_new
 from youtubesearchpython import VideosSearch
 import streamlit as st
-#from dotenv import load_dotenv
+
 
 # Load environment variables
-#load_dotenv()
+#
 
 data = df_new
 df = pd.DataFrame(data)

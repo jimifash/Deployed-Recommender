@@ -3,9 +3,63 @@ import pandas as pd
 import requests
 from datetime import datetime
 import re
+import mysql.connector
+from sqlalchemy import create_engine
+import os
+from dotenv import load_dotenv
+load_dotenv()
+key = os.getenv('PASSWORD')
+host = os.getenv('HOST')
+user = os.getenv('USER')
+db = os.getenv('DB')
 
-data = pd.read_csv("Boomplay Scraped songs.csv")
+
+
+
+
+
+
+
+
+def save_to_mysql(df):
+    # MySQL database connection parameters
+    db_config = {
+        'host': host,
+        'user': user,
+        'password': key,
+        'database': db,
+    }
+
+    # Create a MySQL connection
+    conn = mysql.connector.connect(**db_config)
+
+    # Select the Music database
+    conn.database = 'Music'
+
+    # Save the DataFrame to MySQL using SQLAlchemy
+    engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
+
+    # Create or replace the table
+    df.to_sql('Scraped_data', con=engine, if_exists='replace', index=False)
+
+    # Close the MySQL connection
+    conn.close()
+
+
+
+
+
+
+
+
+
+
+
 def scrape_boomplay(url):
+
+    data = pd.read_csv("Boomplay Scraped songs.csv")
+
+
     # Send an HTTP request to the provided URL
     response = requests.get(url)
 
@@ -71,8 +125,18 @@ def scrape_boomplay(url):
         df['a_age'] = pd.to_datetime(df['a_age'], errors='coerce', format='%Y-%m-%d')
         df['age'] = datetime.today().year - df['a_age'].dt.year
         df.rename(columns={'a_age': 'dob'}, inplace=True)
-        df2 = data.append(df)
-        df2.to_csv("Top_Naija_Music_Trends_Boom_play.csv") #saving the dataframe
+        
+        data = pd.DataFrame(data)
+        #print(f"Type of data before append: {type(data)}")
+        
+        df2= pd.concat([data, df], ignore_index=True)
+        #df2 = data.append(df) if not data.empty else df
+        df2.to_csv("Boomplay Scraped songs.csv", index=False) #saving the dataframe
+        
+        # Save the combined data to MySQL
+        save_to_mysql(df2)
+        
+        
         return df2
 
     else:
