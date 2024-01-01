@@ -140,18 +140,16 @@ def recommend(key):
         index = matching_rows.index[0]
         print("Index:", index)
             
-        
         if 0 <= index < similarity.shape[0]:
-              sim_row = similarity[index]
-              print("Similarity Row:", sim_row)
+            sim_row = similarity[index]
+            print("Similarity Row:", sim_row)
 
-               song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[1:15]
-               recommended_songs = [df_new.iloc[i[0]].song_name for i in song_ls]
-               return recommended_songs
-         else:
-               print("Index out of bounds:", index)
-               return ["Song not found"]
-
+            song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[1:15]
+            recommended_songs = [df_new.iloc[i[0]].song_name for i in song_ls]
+            return recommended_songs
+        else:
+            print("Index out of bounds:", index)
+            return ["Song not found"]
     else:
         return ["Song not found"]
 
