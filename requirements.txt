@@ -10,3 +10,4 @@ matplotlib == 3.7.1
 seaborn == 0.12.2
 lxml==4.6.3
 youtube-search-python == 1.6.6
+python-dotenv == 1.0.0
