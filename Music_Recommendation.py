@@ -132,20 +132,6 @@ df_new['song_name'] = df_new['song_name'].apply(lambda x:x.lower())
 
 # In[49]:
 
-def recommend(key):
-    key = key.lower()
-    matching_rows = df_new[df_new['song_name'] == key]
-    
-    if not matching_rows.empty:
-        index = matching_rows.index[0]
-        sim_row = similarity[index]
-        song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[1:15]
-
-        recommended_songs = [df_new.iloc[i[0]].song_name for i in song_ls]
-        return recommended_songs
-    else:
-        return ["Song not found"] 
-
 
 def recommend(key):
     key = key.lower()
