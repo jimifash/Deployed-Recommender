@@ -21,29 +21,29 @@ db = os.getenv('DB')
 
 
 
-def save_to_mysql(df):
-    # MySQL database connection parameters
-    db_config = {
-        'host': host,
-        'user': user,
-        'password': key,
-        'database': db,
-    }
+#def save_to_mysql(df):
+#    # MySQL database connection parameters
+#    db_config = {
+#        'host': host,
+#        'user': user,
+#        'password': key,
+#        'database': db,
+#    }
 
-    # Create a MySQL connection
-    conn = mysql.connector.connect(**db_config)
+#    # Create a MySQL connection
+#    conn = mysql.connector.connect(**db_config)
 
-    # Select the Music database
-    conn.database = 'Music'
+#    # Select the Music database
+#    conn.database = 'Music'
 
     # Save the DataFrame to MySQL using SQLAlchemy
-    engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
+#    engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
 
     # Create or replace the table
-    df.to_sql('Scraped_data', con=engine, if_exists='replace', index=False)
+#    df.to_sql('Scraped_data', con=engine, if_exists='replace', index=False)
 
     # Close the MySQL connection
-    conn.close()
+#    conn.close()
 
 
 
@@ -134,7 +134,7 @@ def scrape_boomplay(url):
         df2.to_csv("Boomplay Scraped songs.csv", index=False) #saving the dataframe
         
         # Save the combined data to MySQL
-        save_to_mysql(df2)
+        #save_to_mysql(df2)
         
         
         return df2
