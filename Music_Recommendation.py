@@ -133,8 +133,8 @@ df_new['song_name'] = df_new['song_name'].apply(lambda x:x.lower())
 # In[49]:
 
 def recommend(key):
-    key = key.lower()
-    matching_rows = df_new[df_new['song_name'] == key]
+    key_lower = key.lower()
+    matching_rows = df_new[df_new['song_name'].str.lower() == key_lower]
     
     if not matching_rows.empty:
         index = matching_rows.index[0]
@@ -152,4 +152,5 @@ def recommend(key):
             return ["Song not found"]
     else:
         return ["Song not found"]
+
 
