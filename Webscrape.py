@@ -3,8 +3,8 @@ import pandas as pd
 import requests
 from datetime import datetime
 import re
-import mysql.connector
-from sqlalchemy import create_engine
+#import mysql.connector
+#from sqlalchemy import create_engine
 import os
 from dotenv import load_dotenv
 load_dotenv()
