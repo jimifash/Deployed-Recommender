@@ -145,7 +145,7 @@ def recommend(key):
             sim_row = similarity[index]
             print("Similarity Row:", sim_row)
 
-            song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[1:15]
+            song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[0:15]
             recommended_songs = [df_new.iloc[i[0]].song_name for i in song_ls]
             return recommended_songs
         else:
