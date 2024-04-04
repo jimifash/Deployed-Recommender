@@ -36,102 +36,47 @@ from Webscrape import scrape_boomplay
 #conn = mysql.connector.connect(**db_config)
 
 #load the scraped and cleaned data
-df = scrape_boomplay('https://www.boomplay.com/playlists/26356675?from=home')
-#engine = create_engine(f"mysql+mysqlconnector://{db_config['user']}:{db_config['password']}@{db_config['host']}/{db_config['database']}")
+def preprocess_and_compute_similarity(playlist_url='https://www.boomplay.com/playlists/26356675?from=home'):
+    # Scrape Boomplay playlist data
+    df = scrape_boomplay(playlist_url)
+    
+    # Drop duplicate song entries
+    df = df.drop_duplicates(subset=['song_name'])
+    df.reset_index(drop=True, inplace=True)
+    
+    # Copy dataset to avoid tampering with the original
+    df_new = df.copy()
+    
+    # Convert timestamp and artist age to string
+    df_new['time'] = df_new['time'].astype(str)
+    df_new['a_age'] = df_new['a_age'].astype(str)
+    
+    # Create tags
+    df_new['tags'] = df_new['song_name'] + df_new['artist_name'] + df_new['a_age'] + df_new['time']
+    df_new['song_name'] = df_new['song_name'].apply(lambda x: x.strip())
+    
+    # Vectorize the tags
+    cv = CountVectorizer(max_features=5000, stop_words='english')
+    vector = cv.fit_transform(df_new['tags']).toarray()
+    
+    # Reduce words to their roots
+    ps = nltk.stem.PorterStemmer()
 
+    def stem(obj):
+        y = []
+        for i in obj.split():
+            y.append(ps.stem(i))
+        return " ".join(y)
 
-# Use the connection to execute the query
-#query = 'SELECT DISTINCT(song_name),artist_name,a_age,time FROM music.scraped_data'
-#df = pd.read_sql_query(query, con=conn)
-#df
-#df = pd.read_csv("Boomplay Scraped songs.csv")
-df = df.drop_duplicates(subset=['song_name'])
-df.reset_index(drop=True, inplace=True)
-
-# In[4]:
-
-
-#Copy dataset to avoid tampering with the original
-df_new = df.copy()
-
-
-#convert timestamp to string
-df_new['time']=df_new['time'].astype('str')
-df_new['a_age']=df_new['a_age'].astype('str')
-
-
-# In[5]:
-
-
-#check
-df_new.info()
-
-
-# In[6]:
-
-
-#Create tags
-df_new['tags'] = df_new['song_name']+df_new['artist_name']+df_new['a_age']+df_new['time']
-df_new['song_name'] = df_new['song_name'].apply(lambda x:x.strip())
-df_new
-
-
-# In[7]:
-
-
-#vectorize the tags
-cv = CountVectorizer(max_features=5000, stop_words='english')
-
-
-# In[8]:
-
-
-#Reducing or stemming words to it's roots
-ps = nltk.stem.PorterStemmer()
-
-
-def stem(obj):
-    y = []
-    for i in obj.split():
-        y.append(ps.stem(i))
-    return " ".join(y)
-
-
-# In[9]:
-
-
-df_new['tags'] = df_new['tags'].apply(stem)
-
-
-# In[10]:
-
-
-vector = cv.fit_transform(df_new['tags']).toarray()
-vector
-
-
-# In[11]:
-
-
-#finding the cosine similarities in the vector using cosine siimilarities
-
-similarity = cosine_similarity(vector)
-
-
-# In[25]:
-
-
-similarity.shape
-
-
-# In[14]:
-
-
-#reduce all the song title to lower case
-df_new['song_name'] = df_new['song_name'].apply(lambda x:x.lower())
-
-
-# In[49]:
+    df_new['tags'] = df_new['tags'].apply(stem)
+    
+    # Compute cosine similarities
+    similarity = cosine_similarity(vector)
+    
+    # Convert song names to lowercase
+    df_new['song_name'] = df_new['song_name'].apply(lambda x: x.lower())
+    
+    return df_new, similarity
 
 def recommend(key):
     key_lower = key.lower()
