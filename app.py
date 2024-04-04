@@ -1,8 +1,6 @@
 #import os
 import pandas as pd
-from Music_Recommendation import recommend
-from Music_Recommendation import preprocess_and_compute_similarity
-from Music_Recommendation import recommend
+from Music_Recommendation import preprocess_and_compute_similarity, recommend
 from youtubesearchpython import VideosSearch
 import streamlit as st
 
