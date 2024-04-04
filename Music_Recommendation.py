@@ -78,9 +78,9 @@ def preprocess_and_compute_similarity(playlist_url='https://www.boomplay.com/pla
     
     return df_new, similarity
 
-def recommend(key):
+def recommend(key, df= df_new):
     key_lower = key.lower()
-    matching_rows = df_new[df_new['song_name'].str.lower() == key_lower]
+    matching_rows = df[df['song_name'].str.lower() == key_lower]
     
     if not matching_rows.empty:
         index = matching_rows.index[0]
@@ -91,7 +91,7 @@ def recommend(key):
             print("Similarity Row:", sim_row)
 
             song_ls = sorted(list(enumerate(sim_row)), reverse=True, key=lambda x: x[1])[0:15]
-            recommended_songs = [df_new.iloc[i[0]].song_name for i in song_ls]
+            recommended_songs = [df.iloc[i[0]].song_name for i in song_ls]
             return recommended_songs
         else:
             print("Index out of bounds:", index)
