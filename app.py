@@ -32,7 +32,7 @@ def main():
     selected_song_details = df[df['song_name'] == selected_song]
     st.write(selected_song_details)
 
-    recommendations = recommend(selected_song)
+    recommendations = recommend(selected_song, df)
 
     st.subheader("Recommended Songs:")
     if "Song not found" in recommendations:
