@@ -14,6 +14,7 @@ __click the libraries to open the documentations__
 #### Addition on the 27th September 2023
  - Movie Recommendation using sklearn and nltk libraries
 ##### How to use:
- - First run the scraping file in other to scrape the latest data from boomplay
- - Second, run the Music Recommendation file
- - Third, you can now ask for recommendation by typing your song in the cell where there is a prompt "Enter your song" at the buttom
+- Install all the dependencies using python install -r requirements.txt
+- Then input python Music_Recommendation.py on your command prompt
+- Input your song and let it recommend others
+  
