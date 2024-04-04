@@ -8,6 +8,7 @@ import streamlit as st
 # Load environment variables
 #
 
+preprocess_and_compute_similarity()
 data = df_new
 df = pd.DataFrame(data)
 
