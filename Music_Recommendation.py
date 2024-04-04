@@ -78,7 +78,7 @@ def preprocess_and_compute_similarity(playlist_url='https://www.boomplay.com/pla
     
     return df_new, similarity
 
-def recommend(key, df):
+def recommend(key, df, sim):
     key_lower = key.lower()
     matching_rows = df[df['song_name'].str.lower() == key_lower]
     
