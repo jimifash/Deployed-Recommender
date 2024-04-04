@@ -15,6 +15,6 @@ __click the libraries to open the documentations__
  - Movie Recommendation using sklearn and nltk libraries
 ##### How to use:
 - Install all the dependencies using python install -r requirements.txt
-- Then input python Music_Recommendation.py on your command prompt
+- Then input python app.py on your command prompt
 - Input your song and let it recommend others
   
