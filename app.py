@@ -1,6 +1,6 @@
 #import os
 import pandas as pd
-from Music_Recommendation import preprocess_and_compute_similarity, recommend, df_new
+from Music_Recommendation import preprocess_and_compute_similarity, recommend
 from youtubesearchpython import VideosSearch
 import streamlit as st
 
@@ -8,7 +8,7 @@ import streamlit as st
 # Load environment variables
 #
 
-preprocess_and_compute_similarity()
+df_new, sim = preprocess_and_compute_similarity()
 data = df_new
 df = pd.DataFrame(data)
 
